@@ -1,13 +1,10 @@
 import React from "react";
 import { View, Text, Button } from "react-native";
 
-export default ({ navigation }) => (
+export default ({navigation}) => (
     <View>
-        <Text>Home</Text>
-        <Button 
-            onPress={() => navigation.navigate("Detail")} // 이 때, detail은 name의 이름과 동일해야한다.
-            title="Go to Detail"
-        />
+        <Text>Movies</Text>
+        <Button title="Movie" onPress={()=> navigation.navigate("Detail")} />
     </View>
 );
 
