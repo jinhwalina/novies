@@ -2,9 +2,11 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import AppLoading from "expo-app-loading"; // apploading import 해오지 못하는 문제 해결 import 문구 수정하고, npm install 해줬다.
 import * as Font from "expo-font";
-import { Text, Image, View } from "react-native";
+import { Image } from "react-native";
 import { Asset } from 'expo-asset';
 import { Ionicons } from '@expo/vector-icons';
+import { NavigationContainer } from '@react-navigation/native';
+import Stack from "./navigation/Stack";
 
 // 이미지
 const cacheImages = (images) => images.map(image => {
@@ -32,9 +34,9 @@ export default function App() {
   };
   const onFinish = () => setisReady(true);
   return isReady ? (
-    <View>
-      <Text>I'm not ready..!!!!!</Text>
-    </View>
+    <NavigationContainer>
+        <Stack />
+    </NavigationContainer>
   ) : (
     <AppLoading 
       startAsync={loadAssets} 
