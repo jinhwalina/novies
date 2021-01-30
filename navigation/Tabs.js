@@ -1,9 +1,11 @@
 import React,{ useEffect } from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
 import Movies from "../screens/Movies";
 import Tv from "../screens/Tv";
 import Search from "../screens/Search";
 import Favs from "../screens/Favs";
+import { Platform } from 'react-native';
 
 
 const Tabs = createBottomTabNavigator();
@@ -20,7 +22,36 @@ export default ({navigation, route}) => {
     }, [route]);
 
     return (
-        <Tabs.Navigator>
+        <Tabs.Navigator 
+            screenOptions={({route}) => ({
+                tabBarIcon: ({focused}) =>{
+                    let iconName = Platform.OS === "ios" ? "ios-" : "md-";
+                    if(route.name === "Movies") {
+                        iconName += "film"
+                    } else if (route.name === "TV") {
+                        iconName += "tv"
+                    } else if (route.name === "Search") {
+                        iconName += "search"
+                    } else if (route.name === "Favs") {
+                        iconName += "heart"
+                    } // 이렇게 각각 써주는 이유는, 각 탭 항목에 해당하는 아이콘을 지정해서 넣어주기 위함이다.
+                    // 위에 ? 연산자를 통해서 ios인 경우와 아닌경우를 나눠서 iconName + ~ 이런식으로 쉽게 설정하도록 해줬다. 
+                    return (
+                        <Ionicons 
+                            name={iconName} 
+                            color={focused ? "white" : "grey"} 
+                            size={26}
+                        />
+                    );
+                }
+            })}
+            tabBarOptions={{
+            showLabel: false,
+            style: {
+                backgroundColor: "black",
+                borderTopColor: "black"
+            }
+        }}>
         <Tabs.Screen name="Movies" component={Movies} />
         <Tabs.Screen name="TV" component={Tv} />
         <Tabs.Screen name="Search" component={Search} />
