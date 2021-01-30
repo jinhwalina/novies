@@ -32,7 +32,7 @@ export default ({navigation, route}) => {
                         iconName += "tv"
                     } else if (route.name === "Search") {
                         iconName += "search"
-                    } else if (route.name === "Favs") {
+                    } else if (route.name === "Discovery") {
                         iconName += "heart"
                     } // 이렇게 각각 써주는 이유는, 각 탭 항목에 해당하는 아이콘을 지정해서 넣어주기 위함이다.
                     // 위에 ? 연산자를 통해서 ios인 경우와 아닌경우를 나눠서 iconName + ~ 이런식으로 쉽게 설정하도록 해줬다. 
@@ -55,7 +55,7 @@ export default ({navigation, route}) => {
         <Tabs.Screen name="Movies" component={Movies} />
         <Tabs.Screen name="TV" component={Tv} />
         <Tabs.Screen name="Search" component={Search} />
-        <Tabs.Screen name="Favs" component={Favs} />
+        <Tabs.Screen name="Discovery" component={Favs} />
         </Tabs.Navigator>
     );
 };
