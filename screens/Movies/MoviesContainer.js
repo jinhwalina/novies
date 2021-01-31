@@ -48,7 +48,7 @@ export default () => {
         getData();
     }, []);
 
-    return <MoviesPresenter />
+    return <MoviesPresenter {...movies} /> // 모든 state 를 보낸다. 
     // 위처럼 작성하면 화면에 20이 찍힌다. 
 };
 
