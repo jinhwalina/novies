@@ -40,6 +40,7 @@ const Votes = styled.Text`
     color: rgb(220, 220, 220);
     margin-bottom: 7px;
     font-size: 12px;
+    font-weight: 500;
 `;
 const Overview = styled.Text`
     color: rgb(220, 220, 220);   
@@ -49,7 +50,7 @@ const Overview = styled.Text`
 
 const Button = styled.View`
     background-color: red;
-    padding: 5px 10px;
+    padding: 7px 10px;
     margin-top: 10px;
     border-radius: 3px;
 `;
@@ -59,6 +60,8 @@ const ButtonText = styled.Text`
 `;
 
 // Button은 TouchableOpacity에 view랑 text를 더해서 같이 갖고있는 컴포넌트다.
+// 이모지 사용하는 단축키는 윈도우 + . ( 마침표 )
+
 
 // 어떤 특정 props들을 보낼거라 PropTypes를 쓸거다 
 const Slide =  ({id, title, backgroundImage, votes, overview, poster}) => (
@@ -67,9 +70,9 @@ const Slide =  ({id, title, backgroundImage, votes, overview, poster}) => (
         <Content>
             <Poster url={apiImage(poster)}/>
             <Data>
-                <Title>{title.slice(0, 30)}</Title>
-                <Votes>⭐ {votes} / 10</Votes>
-                <Overview>{overview.slice(0, 120)}</Overview>
+                <Title>{title.length > 40 ? `${title.slice(0, 40)}...` : title}</Title>
+                <Votes>⭐ {votes} / 10</Votes> 
+                <Overview>{overview.slice(0, 110)}...</Overview>
                 <TouchableOpacity>
                     <Button>
                         <ButtonText>View details</ButtonText>
