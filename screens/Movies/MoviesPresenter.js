@@ -17,9 +17,11 @@ const SliderContainer = styled.View`
     margin-bottom: 50px;
 `;
 
-
 const Container = styled.View``;
 
+const UpcomingContainer = styled.View`
+    margin-top: 20px
+`;
 
 // timeout 은 자동적으로 얼마나 기다려야하는지..이다 초 단위로 
 export default ({ loading, nowPlaying, popular, upcoming }) => (
@@ -67,16 +69,18 @@ export default ({ loading, nowPlaying, popular, upcoming }) => (
                     ))}
                 </ScrollView>
                 <Title title={"Coming soon"} />
-                {upcoming.map(movie => (
-                    <Horizontal 
-                        key={movie.id} 
-                        id={movie.id} 
-                        title={movie.title} 
-                        votes={movie.vote_average} 
-                        overview={movie.overview}
-                        poster={movie.poster_path} 
-                    />
-                ))}
+                <UpcomingContainer>
+                    {upcoming.map(movie => (
+                        <Horizontal 
+                            key={movie.id} 
+                            id={movie.id} 
+                            title={movie.title}
+                            releaseDate={movie.release_date}
+                            overview={movie.overview}
+                            poster={movie.poster_path} 
+                        />
+                    ))}
+                </UpcomingContainer>
             </Container>
             </>
         )}
