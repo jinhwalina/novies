@@ -4,6 +4,7 @@ import Swiper from "react-native-web-swiper";
 import { ActivityIndicator, View, Dimensions, ScrollView } from 'react-native';
 import Slide from "../../components/Movies/Slide";
 import Title from "../../components/Title";
+import Vertical from '../../components/Vertical';
 
 const {width:WIDTH, height:HEIGHT} = Dimensions.get("window"); 
 // get("screen")을 사용하게되면 웹에서 볼 때 포스터가 중간에 위치하고, width의 길이를 길게 사용하게된다. 
@@ -20,7 +21,7 @@ const Container = styled.View``;
 
 
 // timeout 은 자동적으로 얼마나 기다려야하는지..이다 초 단위로 
-export default ({ loading, nowPlaying }) => (
+export default ({ loading, nowPlaying, popular }) => (
     <ScrollView 
             style={{
                 backgroundColor:"black"
@@ -52,6 +53,16 @@ export default ({ loading, nowPlaying }) => (
             </SliderContainer>
             <Container>
                 <Title title={"Popular Movies"} />
+                <ScrollView horizontal>
+                    {popular.map(movie => (
+                        <Vertical 
+                        key={movie.id} 
+                        poster={movie.poster_path} 
+                        title={movie.original_title} 
+                        votes={movie.vote_average} 
+                        />
+                    ))}
+                </ScrollView>
             </Container>
             </>
         )}
