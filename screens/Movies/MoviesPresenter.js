@@ -23,10 +23,9 @@ const Container = styled.View``;
 // timeout 은 자동적으로 얼마나 기다려야하는지..이다 초 단위로 
 export default ({ loading, nowPlaying, popular }) => (
     <ScrollView 
-            style={{
-                backgroundColor:"black"
-            }}
+            style={{}}
             contentContainerStyle={{
+                backgroundColor:"black",
                 flex:1,
                 justifyContent: loading ? "center" : "flex-start"
             }}
@@ -53,7 +52,11 @@ export default ({ loading, nowPlaying, popular }) => (
             </SliderContainer>
             <Container>
                 <Title title={"Popular Movies"} />
-                <ScrollView horizontal>
+                <ScrollView 
+                    style={{ marginTop: 20 }}
+                    contentContainerStyle={{paddingLeft:30}} 
+                    horizontal showsHorizontalScrollIndicator={false}
+                >
                     {popular.map(movie => (
                         <Vertical 
                         key={movie.id} 
