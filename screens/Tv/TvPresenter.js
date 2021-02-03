@@ -2,9 +2,18 @@ import React from "react";
 import HorizontalSlider from '../../components/HorizontalSlider';
 import ScrollContainer from '../../components/ScrollContainer';
 import Vertical from '../../components/Vertical';
+import styled from "styled-components/native";
+import List from '../../components/List';
+import Horizontal from '../../components/Horizontal';
 
-export default ({loading, popular, topRated}) => (
+const Container = styled.View`
+    margin-top: 30px;
+`;
+
+
+export default ({loading, popular, topRated, today}) => (
     <ScrollContainer loading={loading}>
+        <Container>
         <HorizontalSlider title="Popular Shows">
             {popular.map(show => (
                 <Vertical 
@@ -27,5 +36,18 @@ export default ({loading, popular, topRated}) => (
                 />
             ))}
         </HorizontalSlider>
+        <List title="Airing Today">
+            {today.map(show => (
+                <Horizontal
+                    key={show.id}
+                    id={show.id}
+                    title={show.name}
+                    poster={show.poster_path}
+                    overview={show.overview}
+                />
+                
+            ))}
+        </List>
+        </Container>
     </ScrollContainer>
 )
