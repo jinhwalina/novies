@@ -24,8 +24,8 @@ const Container = styled.View``;
 
 
 // timeout 은 자동적으로 얼마나 기다려야하는지..이다 초 단위로 
-export default ({ loading, nowPlaying, popular, upcoming }) => (
-    <ScrollContainer loading={loading}>
+export default ({ refreshFn, loading, nowPlaying, popular, upcoming }) => (
+    <ScrollContainer refreshFn={refreshFn} loading={loading}>
         <>
             <SliderContainer>
                 <Swiper controlsEnabled={false} loop timeout={3}>

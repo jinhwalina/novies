@@ -9,6 +9,7 @@ export default () => {
     //     movies: [],
     //     error: null
     // });
+    const [refreshing, setrefreshing] = useState(false);
     const [movies, setmovies] = useState({
         loading: true,
         nowPlaying: [],
@@ -48,7 +49,7 @@ export default () => {
         getData();
     }, []);
 
-    return <MoviesPresenter {...movies} /> // 모든 state 를 보낸다. 그래서 propTyped 이 필요가 없었다! 하지만 Slide.js에서는 필요하다 
+    return <MoviesPresenter refreshFn={getData} {...movies} /> // 모든 state 를 보낸다. 그래서 propTyped 이 필요가 없었다! 하지만 Slide.js에서는 필요하다 
     // 위처럼 작성하면 화면에 20이 찍힌다. 
 };
 
