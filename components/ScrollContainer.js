@@ -21,7 +21,7 @@ const ScrollContainer = ({loading, children, contentContainerStyle, refreshFn}) 
             }
             style={{backgroundColor:"black"}}
             contentContainerStyle={{
-                flex: loading ? 1 : 0,
+                flex: loading ? 1 : "auto",
                 justifyContent: loading ? "center" : "flex-start",
                 ...contentContainerStyle
             }}

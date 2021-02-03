@@ -43,7 +43,6 @@ export default () => {
             popularError, 
             upcomingError
         });
-        console.log(movies);
     };
     useEffect(() => {
         getData();
