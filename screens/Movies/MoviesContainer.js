@@ -16,7 +16,7 @@ export default () => {
         upcoming: [],
         nowPlayingError: null,
         popularError: null,
-        upcoming: null
+        upcomingError: null
     })
     const getData = async() => {
         // try {
@@ -42,7 +42,7 @@ export default () => {
             popularError, 
             upcomingError
         });
-        console.log(popular, popularError);
+        console.log(movies);
     };
     useEffect(() => {
         getData();

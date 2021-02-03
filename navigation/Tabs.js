@@ -1,8 +1,8 @@
 import React,{ useEffect } from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import Movies from "../screens/Movies";
-import Tv from "../screens/Tv";
+import Movies from "../screens/Movies/MoviesContainer";
+import Tv from "../screens/Tv/TvContainer";
 import Search from "../screens/Search";
 import Favs from "../screens/Favs";
 import { Platform } from 'react-native';
@@ -52,8 +52,8 @@ export default ({navigation, route}) => {
                 borderTopColor: "black"
             }
         }}>
-        <Tabs.Screen name="Movies" component={Movies} />
         <Tabs.Screen name="TV" component={Tv} />
+        <Tabs.Screen name="Movies" component={Movies} />
         <Tabs.Screen name="Search" component={Search} />
         <Tabs.Screen name="Discovery" component={Favs} />
         </Tabs.Navigator>
