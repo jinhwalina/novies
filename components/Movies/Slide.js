@@ -8,6 +8,7 @@ import Poster from "../Poster";
 import Votes from '../Votes';
 import { TouchableOpacity } from 'react-native';
 import { trimText } from '../../utils';
+import { useNavigation } from '@react-navigation/native';
 
 
 const Container = styled.View`
@@ -63,26 +64,37 @@ const ButtonText = styled.Text`
 
 
 // 어떤 특정 props들을 보낼거라 PropTypes를 쓸거다 
-const Slide =  ({id, title, backgroundImage, votes, overview, poster}) => (
-    <Container>
-        <BG source={{ uri: apiImage(backgroundImage) }} />
-        <Content>
-            <Poster url={poster}/>
-            <Data>
-                <Title>{trimText(title, 40)}</Title>
-                <VotesContainer>
-                    <Votes votes={votes} />
-                </VotesContainer> 
-                <Overview>{trimText(overview, 110)}...</Overview>
-                <TouchableOpacity>
-                    <Button>
-                        <ButtonText>View details</ButtonText>
-                    </Button>
-                </TouchableOpacity>
-            </Data>
-        </Content>
-    </Container>
-);
+const Slide =  ({id, title, backgroundImage, votes, overview, poster}) => {
+    const navigation = useNavigation();
+    const goToDetail = () => navigation.navigate("Detail", {
+        id,
+        title,
+        backgroundImage,
+        votes,
+        overview,
+        poster
+    });
+    return (
+        <Container>
+            <BG source={{ uri: apiImage(backgroundImage) }} />
+            <Content>
+                <Poster url={poster}/>
+                <Data>
+                    <Title>{trimText(title, 40)}</Title>
+                    <VotesContainer>
+                        <Votes votes={votes} />
+                    </VotesContainer> 
+                    <Overview>{trimText(overview, 80)}...</Overview>
+                    <TouchableOpacity onPress={goToDetail}>
+                        <Button>
+                            <ButtonText>View details</ButtonText>
+                        </Button>
+                    </TouchableOpacity>
+                </Data>
+            </Content>
+        </Container>
+    )
+}
 
 Slide.propTypes = {
     id: PropTypes.number.isRequired,
