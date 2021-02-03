@@ -7,6 +7,7 @@ import Title from "../../components/Title";
 import Vertical from '../../components/Vertical';
 import Horizontal from '../../components/Horizontal';
 import ScrollContainer from '../../components/ScrollContainer';
+import HorizontalSlider from '../../components/HorizontalSlider';
 
 const {width:WIDTH, height:HEIGHT} = Dimensions.get("window"); 
 // get("screen")을 사용하게되면 웹에서 볼 때 포스터가 중간에 위치하고, width의 길이를 길게 사용하게된다. 
@@ -44,22 +45,17 @@ export default ({ loading, nowPlaying, popular, upcoming }) => (
                 </Swiper>
             </SliderContainer>
             <Container>
-                <Title title={"Popular Movies"} />
-                <ScrollView 
-                    style={{ marginTop: 20, marginBottom: 40 }}
-                    contentContainerStyle={{paddingLeft:30}} 
-                    horizontal showsHorizontalScrollIndicator={false}
-                >
+                <HorizontalSlider title={"Popular Movies"}>
                     {popular.map(movie => (
-                        <Vertical 
-                            id={movie.id}
-                            key={movie.id} 
-                            poster={movie.poster_path} 
-                            title={movie.original_title} 
-                            votes={movie.vote_average} 
-                        />
-                    ))}
-                </ScrollView>
+                    <Vertical 
+                        id={movie.id}
+                        key={movie.id} 
+                        poster={movie.poster_path} 
+                        title={movie.original_title} 
+                        votes={movie.vote_average} 
+                    />
+                ))}
+                </HorizontalSlider>
                 <Title title={"Coming soon"} />
                 <UpcomingContainer>
                     {upcoming.map(movie => (
