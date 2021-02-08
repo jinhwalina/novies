@@ -60,7 +60,7 @@ export default ({ result, loading }) => (
     // detail 페이지로 이동할때, 상단 detail이 아니라 해당하는 아이디의 제목을 나타내줌! 
     // navigation.setOptions({title})
 
-        <ScrollContainer>
+        <ScrollContainer loading={false} contentContainerStyle={{paddingBottom: 80}} >
             <>
             <Header>
                 <BG source={{uri: apiImage(result.backgroundImage, "")}} />
@@ -73,6 +73,8 @@ export default ({ result, loading }) => (
                 </Container>
             </Header>
             <Data>
+
+            {/* 내용 */}
             {result.overview && (
                     <>
                         <DataName>Overview</DataName>
@@ -98,6 +100,58 @@ export default ({ result, loading }) => (
                     <DataValue>{formatDate(result.release_date)}</DataValue>
                 </>
             )}
+
+            {/* release 상태 */}
+            {result.status && (
+                <>
+                    <DataName>Status</DataName>
+                    <DataValue>{result.status}</DataValue>
+                </>
+            )}
+
+            {/* 러닝타임 */}
+            {result.runtime && (
+                <>
+                    <DataName>Runtime</DataName>
+                    <DataValue>🎬 {result.runtime} minutes</DataValue>
+                </>
+            )}
+
+            {/* 첫 방영날짜 (tv) */}
+            {result.first_air_date && (
+                <>
+                    <DataName>First Air Date</DataName>
+                    <DataValue>{formatDate(result.first_air_date)}</DataValue>
+                </>
+            )}
+
+            {/* 장르 */}
+            {result.genres && (
+                <>
+                    <DataName>Genres</DataName>
+                    <DataValue> 
+                        {result.genres.map((g, index) => index + 1 === result.genres.length ? g.name : `${g.name}, `)}
+                        {/* , 가 마지막에도 계속 붙기때문에 이를 설정해주기 위한 코드를 추가로 작성해줬다! */}
+                    </DataValue>
+                </>
+            )}
+
+            {/* 에피소드 */}
+            {result.number_of_episodes && (
+                <>
+                    <DataName>Seasons / Episodes</DataName>
+                    <DataValue>{result.number_of_seasons} / {result.number_of_episodes}</DataValue>
+                </>
+            )}
+
+            {result.number_of_seasons && (
+                <>
+                    <DataName># of Seasons</DataName>
+                    <DataValue></DataValue>
+                </>
+            )}
+
+
             </Data>
             </>
         </ScrollContainer>
