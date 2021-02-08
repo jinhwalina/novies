@@ -5,6 +5,7 @@ import { apiImage } from '../../api';
 import Poster from '../../components/Poster';
 import ScrollContainer from "../../components/ScrollContainer";
 import Votes from '../../components/Votes';
+import { formatDate } from '../../utils';
 
 const BG = styled.Image`
     width: 100%;
@@ -39,13 +40,14 @@ const Title = styled.Text`
 
 const Data = styled.View`
     padding: 0px 30px;
-    margin-top: 80px;
+    margin-top: 30px;
 `;
 const DataName = styled.Text`
+    margin-top: 30px;
     color: white;
     opacity: 0.8;
     font-weight: 800;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 `;
 
 const DataValue = styled.Text`
@@ -54,30 +56,48 @@ const DataValue = styled.Text`
     font-weight: 500;
 `;
 
-export default ({ movie, loading }) => (
+export default ({ result, loading }) => (
     // detail 페이지로 이동할때, 상단 detail이 아니라 해당하는 아이디의 제목을 나타내줌! 
     // navigation.setOptions({title})
 
         <ScrollContainer>
             <>
             <Header>
-                <BG source={{uri: apiImage(movie.backgroundImage, "")}} />
+                <BG source={{uri: apiImage(result.backgroundImage, "")}} />
                 <Container>
-                    <Poster url={movie.poster} />
+                    <Poster url={result.poster} />
                     <Info>
-                        <Title>{movie.title}</Title>
-                        {movie.votes && <Votes votes={movie.votes} />}
+                        <Title>{result.title}</Title>
+                        {result.votes && <Votes votes={result.votes} />}
                     </Info>
                 </Container>
             </Header>
             <Data>
-            {movie.overview && (
+            {result.overview && (
                     <>
                         <DataName>Overview</DataName>
-                        <DataValue>{movie.overview}</DataValue>
+                        <DataValue>{result.overview}</DataValue>
                     </>
             )}
             {loading && <ActivityIndicator style={{marginTop: 30}} color="white" size="small" />}
+
+            {/* 언어 */}
+            {result.spoken_languages && (
+                <>
+                    <DataName>Languages</DataName>
+                    <DataValue>
+                        {result.spoken_languages.map(l => `${l.name} `)}
+                    </DataValue>
+                </>
+            )}
+
+            {/* 개봉날짜 */}
+            {result.release_date && (
+                <>
+                    <DataName>Release Date</DataName>
+                    <DataValue>{formatDate(result.release_date)}</DataValue>
+                </>
+            )}
             </Data>
             </>
         </ScrollContainer>

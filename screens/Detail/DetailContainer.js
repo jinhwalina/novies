@@ -9,28 +9,29 @@ export default ({
     } 
 }) => {
     const [loading, setloading] = useState(true);
-    const [movie, setmovie] = useState({
-        title,
-        backgroundImage,
-        poster,
-        overview,
-        votes
+    const [detail, setdetail] = useState({
+        loading: true,
+        result: {
+            title,
+            backgroundImage,
+            poster,
+            overview,
+            votes
+        }
     });
     const getData = async () => {
-        if(isTv) {
-            const [getMoive, getMovieError] = await tvApi.show(id);
-        } else {
-            const [getMoive, getMovieError] = await movieApi.movie(id);
-        }
-        setmovie({
-            ...getMoive,
-            title: getMoive.title,
-            backgroundImage: getMoive.backdrop_path,
-            poster: getMoive.poster_path,
-            overview: getMoive.overview,
-            votes: getMoive.vote_average
+        const [getDetail, getDetailError] = isTv ? await tvApi.show(id) : await movieApi.movie(id);
+        setdetail({
+            loading:false,
+            result: {
+                ...getDetail,
+                title: getDetail.title || getDetail.name,
+                backgroundImage: getDetail.backdrop_path,
+                poster: getDetail.poster_path,
+                overview: getDetail.overview,
+                votes: getDetail.vote_average
+            }
         });
-        setloading(false);
     };
 
     useEffect(() => {
@@ -40,5 +41,5 @@ export default ({
     React.useLayoutEffect(() => {
         navigation.setOptions({ title });
     })
-    return <DetailPresenter movie={movie} loading={loading} />;
+    return <DetailPresenter {...detail}/>;
 };
