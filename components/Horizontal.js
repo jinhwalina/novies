@@ -38,10 +38,11 @@ const Overview = styled.Text`
     margin-top: 10px;
 `;
 
-const Horizontal = ({ id, title, overview, poster, releaseDate}) => {
+const Horizontal = ({ isTv = false, id, title, overview, poster, releaseDate}) => {
     const navigation = useNavigation();
     const goToDetail = () => {
         navigation.navigate("Detail", {
+            isTv,
             id,
             title,
             poster,
