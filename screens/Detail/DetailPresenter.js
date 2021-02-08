@@ -1,10 +1,10 @@
 import React from "react";
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
-import { apiImage } from '../api';
-import Poster from '../components/Poster';
-import ScrollContainer from "../components/ScrollContainer";
-import Votes from '../components/Votes';
+import { apiImage } from '../../api';
+import Poster from '../../components/Poster';
+import ScrollContainer from "../../components/ScrollContainer";
+import Votes from '../../components/Votes';
 
 const BG = styled.Image`
     width: 100%;
@@ -54,15 +54,10 @@ const DataValue = styled.Text`
     font-weight: 500;
 `;
 
-export default ({
-    navigation,
-    route:{
-        params: {id, title, backgroundImage, poster, votes, overview}
-    } 
-}) => {
+export default ({backgroundImage, title, votes, overview, poster}) => (
     // detail 페이지로 이동할때, 상단 detail이 아니라 해당하는 아이디의 제목을 나타내줌! 
-    navigation.setOptions({title})
-    return (
+    // navigation.setOptions({title})
+
         <ScrollContainer>
             <>
             <Header>
@@ -85,5 +80,4 @@ export default ({
             </Data>
             </>
         </ScrollContainer>
-    );
-};
+);
