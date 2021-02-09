@@ -9,7 +9,6 @@ export default ({
         params: {isTv, id, title, backgroundImage, poster, votes, overview}
     } 
 }) => {
-    const [loading, setloading] = useState(true);
     const [detail, setdetail] = useState({
         loading: true,
         result: {
