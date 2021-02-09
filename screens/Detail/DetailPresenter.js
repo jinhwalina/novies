@@ -1,11 +1,13 @@
 import React from "react";
-import { ActivityIndicator, Dimensions } from 'react-native';
+import { ActivityIndicator, Dimensions, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 import { apiImage } from '../../api';
 import Poster from '../../components/Poster';
 import ScrollContainer from "../../components/ScrollContainer";
 import Votes from '../../components/Votes';
 import { formatDate } from '../../utils';
+import * as WebBrowser from 'expo-web-browser';
+import Link from '../../components/Detail/Link';
 
 const BG = styled.Image`
     width: 100%;
@@ -56,7 +58,7 @@ const DataValue = styled.Text`
     font-weight: 500;
 `;
 
-export default ({ result, loading }) => (
+export default ({ openBrowser, result, loading }) => (
     // detail 페이지로 이동할때, 상단 detail이 아니라 해당하는 아이디의 제목을 나타내줌! 
     // navigation.setOptions({title})
 
@@ -144,13 +146,16 @@ export default ({ result, loading }) => (
                 </>
             )}
 
-            {result.number_of_seasons && (
-                <>
-                    <DataName># of Seasons</DataName>
-                    <DataValue></DataValue>
-                </>
-            )}
+            {result.imdb_id && (
+                <Link 
+                    text={"IMDB PAGE"}
+                    icon={"imdb"}
+                    onPress={()=> 
+                        openBrowser(`https://www.imdb.com/title/${result.imdb_id}`)
+                    } 
+                />
 
+            )}
 
             </Data>
             </>
