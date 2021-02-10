@@ -32,7 +32,9 @@ const getAnything = async(path, params = {}) => {
 export const movieApi = {
     nowPlaying: () => getAnything("/movie/now_playing"),
     popular: () => getAnything("/movie/popular"),
-    upcoming: () => getAnything("/movie/upcoming", {region: "kr"}),
+    upcoming: () => getAnything("/movie/upcoming", {region: "kr"}), 
+    // {language: "ko"} 이런식으로 설정해주면 언어를 한국어로 설정해줄수있다. 
+    //( params 안에 region과 함께 쓰일수도있다! 하지만 바꿔주려면 각각 파람들을 넣어서 보내줘야하는 단점이 있다)
     search: query => getAnything("/search/movie/", { query }),
     movie: id => getAnything(`/movie/${id}`, {append_to_response:'videos'}),
     discover: () => getAnything("/discover/movie/")
