@@ -43,17 +43,22 @@ export default ({results}) => {
                 useNativeDriver: true,
             }).start(); // 적용할 animated를 시작해주는
         }
+    });
+    const rotationValues = position.x.interpolate({
+        inputRange: [-100, 0 ,100],
+        outputRange: ["-5deg", "0deg" ,"5deg"],
+        extrapolate: "clamp"
+        // 여기서 중요한점은, 음수에서 양수로 interpolate 해야한다. 
     })
-
     return (
         <Container>
-            {results.reverse().map((result, index) => {
+            {results.map((result, index) => {
                 if(index === topIndex) {
                     return (
                         <Animated.View style={{
                             ...styles,
                             zIndex : 1,
-                            transform: [...position.getTranslateTransform()]
+                            transform: [{rotate: rotationValues}, ...position.getTranslateTransform()]
                         }} key={result.id} {...panResponder.panHandlers}>
                             <Poster source={{uri: apiImage(result.poster_path)}} />
                         </Animated.View>
@@ -62,6 +67,7 @@ export default ({results}) => {
                 return (
                     <Animated.View style={{
                         ...styles,
+                        zIndex: -index
                     }} key={result.id} {...panResponder.panHandlers}>
                         <Poster source={{uri: apiImage(result.poster_path)}} />
                     </Animated.View>
