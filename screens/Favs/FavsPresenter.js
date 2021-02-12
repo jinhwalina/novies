@@ -28,20 +28,38 @@ const styles= {
 
 export default ({results}) => {
     const [topIndex, settopIndex] = useState(0);
+    // 현재 맨 위에 있는 카드의 값을 증가시켜주고있다. 
+    const nextCard = () => settopIndex(currentValue => currentValue + 1)
     const position = new Animated.ValueXY();
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
         onPanResponderMove: (evt, {dx, dy}) =>{
             position.setValue({x:dx,y:dy});
         },
-        onPanResponderRelease: () => {
-            Animated.spring(position, {
-                toValue: {
-                    x: 0,
-                    y: 0
-                },
-                useNativeDriver: true,
-            }).start(); // 적용할 animated를 시작해주는
+        onPanResponderRelease: (evt, {dx, dy}) => {
+            if(dx >= 250) {
+                Animated.spring(position, {
+                    toValue: {
+                        x: WIDTH + 100,
+                        y: dy
+                    }
+                }).start(nextCard);
+            } else if (dx <= -250) {
+                Animated.spring(position, {
+                    toValue: {
+                        x: -WIDTH - 100,
+                        y: dy
+                    }
+                }).start(nextCard);
+            } else {
+                Animated.spring(position, {
+                    toValue: {
+                        x: 0,
+                        y: 0
+                    },
+                    //useNativeDriver: true,
+                }).start(); // 적용할 animated를 시작해주는
+            }
         }
     });
     // 카드를 이동할때 움직이는 애니메이션 동작 각도
@@ -65,8 +83,11 @@ export default ({results}) => {
     return (
         <Container>
             {results.map((result, index) => {
+                if(index < topIndex) {
+                    return null
+                }
                 // 첫번째 보여지는 카드 
-                if(index === topIndex) {
+                else if(index === topIndex) {
                     return (
                         <Animated.View style={{
                             ...styles,
@@ -104,3 +125,9 @@ export default ({results}) => {
         </Container>
     );
 }
+// 첫 번째 카드는 index가 0일 것이다.
+// currentIndex도 마찬가지로 0이다. 
+// 그럼 이 카드는 맨 위가 되는거다. 
+// 하지만 우리가 첫 번째 카드를 버린다면 currentIndex 즉, topIndex가 1이 될것이다. 
+// 그래서 이 카드는 더이상 맨 윗 카드가 아닌거고, 우린 이걸 Render 할 필요가 없다. 
+// Index가 증가할수록 더 많은 카드를 Render 하지 않는것이다. 
